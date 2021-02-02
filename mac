@@ -132,6 +132,9 @@ brew "zsh"
 brew "heroku/brew/heroku"
 brew "parity"
 
+# AWS
+brew "awscli"
+
 # GitHub
 brew "gh"
 
@@ -228,8 +231,24 @@ install_python() {
   source ~/.zshrc
 }
 
+install_zsh_autocomplete() {
+  brew install zsh-completions
+  cat <<\EOT >> ~/.zshrc
+  if type brew &>/dev/null; then
+   FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+
+   autoload -Uz compinit
+   compinit
+  fi
+  EOT
+  rm -f ~/.zcompdump;compinit
+}
+
 fancy_echo "Installing setting up python ..."
 install_python
+
+fancy_echo "Installing zsh autocomplete ..."
+install_zsh_autocomplete
 
 fancy_echo "Installing spacemacs ..."
 git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
