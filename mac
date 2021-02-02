@@ -223,7 +223,7 @@ install_python() {
   brew install pyenv
   pyenv install 3.8.7
   pyenv global 3.8.7
-  echo -e "if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi" >> ~/.zshrc
+  echo -e "if command -v pyenv 1>/dev/null 2>&1; then\n  eval \"$(pyenv init -)\"\nfi" >> ~/.zshrc
   # shellcheck disable=SC1090
   source ~/.zshrc
 }
