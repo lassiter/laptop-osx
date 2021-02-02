@@ -150,7 +150,7 @@ brew "redis", restart_service: :changed
 
 # Install mas
 brew mas
-mas 1password
+mas "1password"
 
 # Applications
 cask "firefox-developer-edition"
@@ -223,6 +223,14 @@ fancy_echo "Installing spacemacs ..."
 git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 # https://github.com/syl20bnr/spacemacs/issues/12535
 sed -i '' $'1s/^/(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")\\\n/' ~/.emacs.d/init.el
+
+
+fancy_echo "What's the email you want to use for your Git profile?"
+read git_email
+git config --global user.email $git_email
+fancy_echo "What's the name you want to use for your Git profile?"
+read git_name
+git config --global user.name $git_name
 
 
 
