@@ -126,8 +126,8 @@ brew "tmux"
 brew "vim"
 brew "watchman"
 brew "zsh"
-brew "iterm2"
-brew "visual-studio-code"
+brew --cask "iterm2"
+brew --cask "visual-studio-code"
 
 # Heroku
 brew "heroku/brew/heroku"
@@ -150,13 +150,13 @@ brew "postgres", restart_service: :changed
 brew "redis", restart_service: :changed
 
 # Applications
-brew "firefox-developer-edition"
-brew "brave-browser"
-brew "google-chrome"
-brew "zoom"
-brew "postman"
-brew "slack"
-brew "spotify"
+brew --cask "firefox-developer-edition"
+brew --cask "brave-browser"
+brew --cask "google-chrome"
+brew --cask "zoom"
+brew --cask "postman"
+brew --cask "slack"
+brew --cask "spotify"
 
 EOF
 
