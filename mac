@@ -126,6 +126,8 @@ brew "tmux"
 brew "vim"
 brew "watchman"
 brew "zsh"
+brew "iterm2"
+brew "visual-studio-code"
 
 # Heroku
 brew "heroku/brew/heroku"
@@ -146,6 +148,16 @@ cask "gpg-suite"
 # Databases
 brew "postgres", restart_service: :changed
 brew "redis", restart_service: :changed
+
+# Applications
+brew "firefox-developer-edition"
+brew "brave-browser"
+brew "google-chrome"
+brew "zoom"
+brew "postman"
+brew "slack"
+brew "spotify"
+
 EOF
 
 fancy_echo "Update heroku binary ..."
@@ -201,3 +213,12 @@ if [ -f "$HOME/.laptop.local" ]; then
   # shellcheck disable=SC1090
   . "$HOME/.laptop.local"
 fi
+
+
+fancy_echo "Installing spacemacs ..."
+git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+# https://github.com/syl20bnr/spacemacs/issues/12535
+sed -i '' $'1s/^/(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")\\\n/' ~/.emacs.d/init.el
+
+
+
