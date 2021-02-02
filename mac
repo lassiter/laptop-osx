@@ -152,7 +152,7 @@ brew "postgres", restart_service: :changed
 brew "redis", restart_service: :changed
 
 # Install mas
-brew mas
+brew "mas"
 mas "1password"
 
 # Applications
