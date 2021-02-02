@@ -162,6 +162,7 @@ cask "slack"
 cask "spotify"
 cask "iterm2"
 cask "visual-studio-code"
+cask "shadow"
 EOF
 
 fancy_echo "Update heroku binary ..."
