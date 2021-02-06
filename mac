@@ -155,10 +155,6 @@ cask "gpg-suite"
 brew "postgres", restart_service: :changed
 brew "redis", restart_service: :changed
 
-# Install mas
-brew "mas"
-mas "1password"
-
 # Applications
 cask "firefox-developer-edition"
 cask "brave-browser"
@@ -170,6 +166,7 @@ cask "spotify"
 cask "iterm2"
 cask "visual-studio-code"
 cask "shadow"
+cask "1password"
 EOF
 
 fancy_echo "Update heroku binary ..."
