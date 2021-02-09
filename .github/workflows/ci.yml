@@ -1,0 +1,20 @@
+name: CI
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+jobs:
+  build:
+    runs-on: macOS-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v1
+      - name: Update homebrew 
+        run: brew update
+      - name: Install shellcheck 
+        run: brew install shellcheck
+      - name: run shellcheck
+        run: shellcheck mac -e SC2039
+      - name: execute mac shell file
+        run: sh mac

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Welcome to the thoughtbot laptop script!
+# Welcome to lassiter's laptop script! Forked from thoughtbot
 # Be prepared to turn your laptop (or desktop, no haters here)
 # into an awesome development machine.
 
@@ -102,7 +102,7 @@ if ! command -v brew >/dev/null; then
     export PATH="/usr/local/bin:$PATH"
 fi
 
-if brew list | grep -Fq brew-cask; then
+if brew list --formula | grep -Fq brew-cask; then
   fancy_echo "Uninstalling old Homebrew-Cask ..."
   brew uninstall --force brew-cask
 fi
@@ -114,6 +114,7 @@ tap "thoughtbot/formulae"
 tap "homebrew/services"
 tap "universal-ctags/universal-ctags"
 tap "heroku/brew"
+tap "homebrew/cask"
 
 # Unix
 brew "universal-ctags", args: ["HEAD"]
@@ -126,6 +127,7 @@ brew "tmux"
 brew "vim"
 brew "watchman"
 brew "zsh"
+brew "tree"
 
 # Heroku
 brew "heroku/brew/heroku"
@@ -133,6 +135,9 @@ brew "parity"
 
 # GitHub
 brew "gh"
+
+# Docker
+brew "docker"
 
 # Image manipulation
 brew "imagemagick"
@@ -146,6 +151,19 @@ cask "gpg-suite"
 # Databases
 brew "postgres", restart_service: :changed
 brew "redis", restart_service: :changed
+
+# Applications
+cask "brave-browser"
+cask "google-chrome"
+cask "zoom"
+cask "postman"
+cask "slack"
+cask "spotify"
+cask "iterm2"
+cask "visual-studio-code"
+cask "shadow"
+cask "iglance"
+cask "1password"
 EOF
 
 fancy_echo "Update heroku binary ..."
@@ -196,8 +214,31 @@ fancy_echo "Installing latest Node ..."
 bash "$HOME/.asdf/plugins/nodejs/bin/import-release-team-keyring"
 install_asdf_language "nodejs"
 
+fancy_echo "Installing latest Python ..."
+install_asdf_language "python"
+
+curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+unzip awscli-bundle.zip
+sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+
 if [ -f "$HOME/.laptop.local" ]; then
   fancy_echo "Running your customizations from ~/.laptop.local ..."
   # shellcheck disable=SC1090
   . "$HOME/.laptop.local"
 fi
+
+fancy_echo "Installing spacemacs ..."
+git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+# https://github.com/syl20bnr/spacemacs/issues/12535
+sed -i '' $'1s/^/(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")\\\n/' ~/.emacs.d/init.el
+
+
+fancy_echo "What's the email you want to use for your Git profile?"
+read -r git_email
+git config --global user.email "$git_email"
+fancy_echo "What's the name you want to use for your Git profile?"
+read -r git_name
+git config --global user.name "$git_name"
+
+
+
