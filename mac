@@ -133,9 +133,6 @@ brew "tree"
 brew "heroku/brew/heroku"
 brew "parity"
 
-# AWS
-brew "awscli"
-
 # GitHub
 brew "gh"
 
@@ -156,7 +153,6 @@ brew "postgres", restart_service: :changed
 brew "redis", restart_service: :changed
 
 # Applications
-cask "firefox-developer-edition"
 cask "brave-browser"
 cask "google-chrome"
 cask "zoom"
@@ -166,6 +162,7 @@ cask "spotify"
 cask "iterm2"
 cask "visual-studio-code"
 cask "shadow"
+cask "iglance"
 cask "1password"
 EOF
 
@@ -217,23 +214,18 @@ fancy_echo "Installing latest Node ..."
 bash "$HOME/.asdf/plugins/nodejs/bin/import-release-team-keyring"
 install_asdf_language "nodejs"
 
+fancy_echo "Installing latest Python ..."
+install_asdf_language "python"
+
+curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+unzip awscli-bundle.zip
+sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+
 if [ -f "$HOME/.laptop.local" ]; then
   fancy_echo "Running your customizations from ~/.laptop.local ..."
   # shellcheck disable=SC1090
   . "$HOME/.laptop.local"
 fi
-
-install_python() {
-  brew install pyenv
-  pyenv install 3.8.7
-  pyenv global 3.8.7
-  echo -e "if command -v pyenv 1>/dev/null 2>&1; then\n  eval \"$(pyenv init -)\"\nfi" >> ~/.zshrc
-  # shellcheck disable=SC1090
-  source ~/.zshrc
-}
-
-fancy_echo "Installing setting up python ..."
-install_python
 
 fancy_echo "Installing spacemacs ..."
 git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
